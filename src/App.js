@@ -6,13 +6,24 @@ import Section from './components/Section';
 import ContactForm from './components/ContactForm';
 import ContactList from './components/ContactList';
 import Filter from './components/Filter';
-import initialContacts from './utils/contacts.json';
+// import initialContacts from './utils/contacts.json';
 
 class App extends Component {
   state = {
-    contacts: initialContacts,
+    contacts: [],
+    // contacts: initialContacts,
     filter: '',
   };
+
+  componentDidMount() {
+    const contactsData = JSON.parse(localStorage.getItem('contacts'));
+    if (contactsData) this.setState({ contacts: contactsData });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts)
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+  }
 
   handleChange = event => {
     const { name, value } = event.currentTarget;

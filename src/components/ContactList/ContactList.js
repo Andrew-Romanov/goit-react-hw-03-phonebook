@@ -23,16 +23,13 @@ class ContactList extends Component {
       <>
         <ul className={styles.ContactList}>
           {filteredContacts.map(({ id, name, number }) => (
-            <ContactListElement
-              key={id}
-              id={id}
-              name={name}
-              number={number}
-              whenDelete={this.props.whenDelete}
-            />
-            // <li key={id}>
-            //   {name}: {number}
-            // </li>
+            <li className={styles.ContactList__Item} key={id}>
+              <ContactListElement
+                name={name}
+                number={number}
+                whenDelete={() => this.props.whenDelete(id)}
+              />
+            </li>
           ))}
         </ul>
       </>
